@@ -1,0 +1,17 @@
+{
+  "name": "ai-bdd-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('.features-gen', { recursive: true, force: true })\"",
+    "test": "npm run clean && bddgen && playwright test --headed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "playwright-bdd": "^9.2.1"
+  }
+}
