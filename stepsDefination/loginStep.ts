@@ -1,35 +1,44 @@
 import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
+import { test } from '../fixtures/pageFixtures';
 
-const { Given, When, Then } = createBdd();
+const { Given, When, Then } = createBdd(test);
 
-Given('I open the BrokerLOS home page', async ({ page }) => {
-    await page.goto('https://crm.devbrokerlos.com/');
+Given('I open the BrokerLOS home page', async ({ loginPage }) => {
+    await loginPage.openHomePage();
 });
 
-When('I click the {string} link', async ({ page }, linkName: string) => {
-    await page.getByRole('link', { name: linkName }).click();
+When('I click the {string} link', async ({ loginPage }, linkName: string) => {
 
+    if (linkName === 'Sign In') {
+        await loginPage.clickSignIn();
+    } else {
+        throw new Error(`Unsupported link: ${linkName}`);
+    }
 });
 
-Then('I should see the {string} link', async ({ page }, linkName: string) => {
-    await expect(page.getByRole('link', { name: linkName })).toBeVisible();
+When('I log in with email {string} and password {string}', async ({ loginPage }, email: string, password: string) => {
+    await loginPage.login(email, password);
 });
 
-Then('I should see the {string} field', async ({ page }, fieldName: string) => {
-    await expect(page.getByRole('textbox', { name: fieldName })).toBeVisible();
+Then('I should see the {string} link', async ({ loginPage }, linkName: string) => {
+    await expect(loginPage.signInLink).toBeVisible();
 });
 
-When('I log in with email {string} and password {string}', async ({ page }, email: string, password: string) => {
-    await page.getByRole('textbox', { name: 'Email' }).fill(email);
-    await page.getByRole('textbox', { name: 'Password' }).fill(password);
-    await page.getByRole('button', { name: 'Sign In' }).click();
+Then('I should still see the {string} field', async ({ loginPage }, fieldName: string) => {
+    if (fieldName === 'Email') {
+        await expect(loginPage.emailField).toBeVisible();
+    } else if (fieldName === 'Password') {
+        await expect(loginPage.passwordField).toBeVisible();
+    } else {
+        throw new Error(`Unsupported field: ${fieldName}`);
+    }
 });
 
-Then('I should still see the {string} field', async ({ page }, fieldName: string) => {
-    await expect(page.getByRole('textbox', { name: fieldName })).toBeVisible();
+Then('I should see the error {string}', async ({ page }, message: string) => {
+    await expect(page.getByText(message)).toBeVisible();
 });
 
-Then('I should see {string}', async ({ page }, message: string) => {
+Then('I should see the {string} text', async ({ page }, message: string) => {
     await expect(page.getByText(message)).toBeVisible();
 });
