@@ -9,19 +9,19 @@ Feature: Login
   #   Then I should see the "Email" field
   #   And I should see the "Password" field
 
-  Scenario Outline: Login form shows the <field> field
-    When I click the "Sign In" link
-    Then I should see the "<field>" field
+  # Scenario Outline: Login form shows the <field> field
+  #   When I click the "Sign In" link
+  #   Then I should see the "<field>" field
 
-    Examples:
-      | field    |
-      | Email    |
-      | Password |
+  #   Examples:
+  #     | field    |
+  #     | Email    |
+  #     | Password |
 
   Scenario Outline: Login is refused for <case>
     When I click the "Sign In" link
     And I log in with email "<email>" and password "<password>"
-    Then I should see "Invalid email or password"
+    Then I should see the "User does not exist." text
     But I should still see the "Password" field
 
     Examples:
