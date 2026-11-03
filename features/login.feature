@@ -31,6 +31,7 @@ Feature: User Login
   #     | user | password |
   #     | will | will     |
 
+  @smoke @login
   Scenario: Login with valid credentials from environment variables
     When I log in with user and password
     Then I should see the profile icon

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('.features-gen', { recursive: true, force: true })\"",
-    "test": "npm run clean && bddgen && playwright test"
+    "test": "npm run clean && bddgen && playwright test",
+    "test:smoke": "npm run clean && bddgen && playwright test --grep @smoke"
   },
   "keywords": [],
   "author": "",
