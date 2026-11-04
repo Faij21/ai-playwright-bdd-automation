@@ -21,7 +21,8 @@ export default defineConfig({
         baseURL: process.env.BASE_URL || 'https://crm.devbrokerlos.com/',
 
         headless: false,
-        video: "retain-on-failure"
+        video: "retain-on-failure",
+        trace: "retain-on-failure",
 
     },
 }); 
