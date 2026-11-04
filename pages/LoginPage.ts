@@ -1,32 +1,33 @@
 import type { Locator, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 export class LoginPage {
     readonly page: Page
-    readonly signInLink: Locator;
-    readonly emailField: Locator;
+    readonly recentlyViewedTab: Locator;
+    readonly usernameField: Locator;
     readonly passwordField: Locator;
     readonly loginButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.signInLink = page.getByRole('link', { name: 'Sign In' });
-        this.emailField = page.getByRole('textbox', { name: 'Email' });
+        this.recentlyViewedTab = page.getByRole('heading', { name: 'Recently Viewed' });
+        this.usernameField = page.getByRole('textbox', { name: 'Username' });
         this.passwordField = page.getByRole('textbox', { name: 'Password' });
-        this.loginButton = page.getByRole('button', { name: 'Sign In', exact: true });
+        this.loginButton = page.getByRole('button', { name: 'Log In', exact: true });
 
     }
 
     async openHomePage() {
-        await this.page.goto('https://crm.devbrokerlos.com/');
+        await this.page.goto(process.env.BASE_URL || "Check your .env file for BASE_URL");
     }
 
-    async clickSignIn() {
-        await this.signInLink.click();
-    }
-
-    async login(email: string, password: string) {
-        await this.emailField.fill(email);
+    async login(user: string, password: string) {
+        await this.usernameField.fill(user);
         await this.passwordField.fill(password);
         await this.loginButton.click();
+    }
+
+    async verifyProfileIcon() {
+        await expect(this.page.getByRole('button', { name: ' Will Westin ' })).toBeVisible();
     }
 }

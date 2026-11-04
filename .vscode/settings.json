@@ -9,5 +9,6 @@
         "stepsDefination/**/*.ts"
     ],
     "cucumberautocomplete.syncfeatures": "features/**/*.feature",
-    "cucumberautocomplete.strictGherkinCompletion": true
+    "cucumberautocomplete.strictGherkinCompletion": true,
+    "dotenv.enableAutocloaking": false
 }
