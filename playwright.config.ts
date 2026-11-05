@@ -1,7 +1,7 @@
 // import 'dotenv/config';
 import dotenv from 'dotenv';
 import { defineConfig } from '@playwright/test';
-import { defineBddConfig } from 'playwright-bdd';
+import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
 
 const environment = process.env.TEST_ENV || 'qa';
 
@@ -25,4 +25,11 @@ export default defineConfig({
         trace: "retain-on-failure",
 
     },
+    reporter: [
+        ['html', { open: 'never' }],
+
+        cucumberReporter('html', {
+            outputFile: 'cucumber-report/index.html',
+        }),
+    ],
 }); 
