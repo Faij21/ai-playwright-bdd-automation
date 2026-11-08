@@ -35,3 +35,8 @@ Feature: User Login
   Scenario: Login with valid credentials from environment variables
     When I log in with user and password
     Then I should see the profile icon
+
+  @smoke @invalid-login
+  Scenario: Login with invalid credentials from test data file
+    When I log in with invalid credentials
+    Then I should not see the profile icon

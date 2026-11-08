@@ -1,0 +1,14 @@
+{
+    "validLogin": {
+        "email": "qa.user@brokerlos.test",
+        "password": "your_test_password"
+    },
+    "invalidLogin": {
+        "email": "wrong@example.com",
+        "password": "Wrong@123"
+    },
+    "emptyLogin": {
+        "email": "",
+        "password": ""
+    }
+}
