@@ -30,4 +30,8 @@ export class LoginPage {
     async verifyProfileIcon() {
         await expect(this.page.getByRole('button', { name: ' Will Westin ' })).toBeVisible();
     }
+
+    async verifyProfileIconNotVisible() {
+        await expect(this.page.getByRole('button', { name: ' Will Westin ' })).not.toBeVisible();
+    }
 }

@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { test } from '../fixtures/pageFixtures';
+import loginData from '../test-data/loginData.json';
 
 const { Given, When, Then } = createBdd(test);
 
@@ -38,4 +39,13 @@ Then('I should still see the {string} field', async ({ loginPage }, fieldName: s
     }
 });
 
+When('I log in with invalid credentials', async ({ loginPage }) => {
+    await loginPage.login(
+        loginData.invalidLogin.email,
+        loginData.invalidLogin.password
+    );
+});
 
+Then('I should not see the profile icon', async ({ loginPage }) => {
+    await loginPage.verifyProfileIconNotVisible();
+});
