@@ -15,6 +15,8 @@ const testDir = defineBddConfig({
 });
 
 export default defineConfig({
+    workers: 1,
+    retries: 2,
     testDir,
     use: {
         // baseURL: 'https://crm.devbrokerlos.com/',
